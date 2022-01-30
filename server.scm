@@ -10,11 +10,10 @@
              (web server) 
              (web uri))
 
-(define content "")
-
 (define (get-content filename) 
-  (let ((input-file (open-file (string-append "." filename) "r"))) 
-    (get-string-all input-file)))
+  (call-with-input-file (string-append "." filename) 
+    (lambda (port) 
+      (get-string-all port))))
 
 (define (request-path-components request) 
   (uri-path (request-uri request)))
